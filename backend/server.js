@@ -137,10 +137,16 @@ app.post('/api/contact', [
 
   } catch (error) {
     console.error('Error sending email:', error);
+    console.error('Error details:', error.message);
+    console.error('EMAIL_USER set:', !!process.env.EMAIL_USER);
+    console.error('EMAIL_PASS set:', !!process.env.EMAIL_PASS);
+    console.error('RECEIVER_EMAIL set:', !!process.env.RECEIVER_EMAIL);
+    
     res.status(500).json({ 
       success: false, 
       message: 'Failed to send message. Please try again later.',
-      error: process.env.NODE_ENV === 'development' ? error.message : undefined
+      error: process.env.NODE_ENV === 'development' ? error.message : undefined,
+      details: error.message // Temporarily show error details for debugging
     });
   }
 });
