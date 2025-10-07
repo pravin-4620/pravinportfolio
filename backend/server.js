@@ -8,7 +8,16 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 // Middleware
-app.use(cors());
+const corsOptions = {
+  origin: [
+    'http://localhost:3000',
+    'http://localhost:3003',
+    'https://pravin-fat9e24ht-pravins-projects-aec234d3.vercel.app',
+    /\.vercel\.app$/ // Allow all Vercel preview deployments
+  ],
+  credentials: true
+};
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 

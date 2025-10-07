@@ -64,7 +64,7 @@ const ContactEnhanced = () => {
       setServerError('');
 
       try {
-        const response = await fetch('http://localhost:5001/api/contact', {
+        const response = await fetch('https://pravin-portfolio-backend.onrender.com/api/contact', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -85,7 +85,7 @@ const ContactEnhanced = () => {
         }
       } catch (error) {
         console.error('Error submitting form:', error);
-        setServerError('Unable to connect to server. Please make sure the backend is running on port 5000.');
+        setServerError('Unable to connect to server. Please try again later.');
       } finally {
         setLoading(false);
       }
