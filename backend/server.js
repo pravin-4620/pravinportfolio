@@ -12,6 +12,7 @@ const corsOptions = {
   origin: [
     'http://localhost:3000',
     'http://localhost:3003',
+    'https://pravin-peach.vercel.app',
     'https://pravin-fat9e24ht-pravins-projects-aec234d3.vercel.app',
     /\.vercel\.app$/ // Allow all Vercel preview deployments
   ],
