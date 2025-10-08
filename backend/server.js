@@ -1,11 +1,14 @@
 const express = require('express');
 const cors = require('cors');
-const nodemailer = require('nodemailer');
+const { Resend } = require('resend');
 const { body, validationResult } = require('express-validator');
 require('dotenv').config();
 
 const app = express();
 const PORT = process.env.PORT || 5000;
+
+// Initialize Resend
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 // Middleware
 const corsOptions = {
@@ -21,26 +24,6 @@ const corsOptions = {
 app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
-// Create nodemailer transporter with explicit SMTP settings
-const createTransporter = () => {
-  return nodemailer.createTransport({
-    host: 'smtp.gmail.com',
-    port: 587,
-    secure: false, // Use STARTTLS
-    auth: {
-      user: process.env.EMAIL_USER,
-      pass: process.env.EMAIL_PASS
-    },
-    tls: {
-      rejectUnauthorized: false,
-      ciphers: 'SSLv3'
-    },
-    connectionTimeout: 10000, // 10 seconds
-    greetingTimeout: 10000,
-    socketTimeout: 10000
-  });
-};
 
 // Health check endpoint
 app.get('/', (req, res) => {
@@ -66,12 +49,10 @@ app.post('/api/contact', [
   const { name, email, subject, message } = req.body;
 
   try {
-    const transporter = createTransporter();
-
     // Email to you (the portfolio owner)
-    const mailOptionsToOwner = {
-      from: process.env.EMAIL_USER,
-      to: process.env.RECEIVER_EMAIL || process.env.EMAIL_USER,
+    const emailToOwner = await resend.emails.send({
+      from: 'onboarding@resend.dev',
+      to: process.env.RECEIVER_EMAIL || 'pravinsurya2905@gmail.com',
       subject: `Portfolio Contact: ${subject}`,
       html: `
         <div style="font-family: Arial, sans-serif; padding: 20px; background-color: #f4f4f4;">
@@ -95,11 +76,11 @@ app.post('/api/contact', [
           </div>
         </div>
       `
-    };
+    });
 
     // Auto-reply email to the sender
-    const mailOptionsToSender = {
-      from: process.env.EMAIL_USER,
+    const emailToSender = await resend.emails.send({
+      from: 'onboarding@resend.dev',
       to: email,
       subject: 'Thank you for contacting me!',
       html: `
@@ -124,7 +105,7 @@ app.post('/api/contact', [
             
             <p style="color: #333; line-height: 1.6; margin-top: 20px;">
               Best regards,<br/>
-              <strong>Your Name</strong>
+              <strong>Pravin</strong>
             </p>
             
             <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid #eee; text-align: center; color: #888; font-size: 12px;">
@@ -133,11 +114,7 @@ app.post('/api/contact', [
           </div>
         </div>
       `
-    };
-
-    // Send both emails
-    await transporter.sendMail(mailOptionsToOwner);
-    await transporter.sendMail(mailOptionsToSender);
+    });
 
     res.status(200).json({ 
       success: true, 
@@ -147,8 +124,7 @@ app.post('/api/contact', [
   } catch (error) {
     console.error('Error sending email:', error);
     console.error('Error details:', error.message);
-    console.error('EMAIL_USER set:', !!process.env.EMAIL_USER);
-    console.error('EMAIL_PASS set:', !!process.env.EMAIL_PASS);
+    console.error('RESEND_API_KEY set:', !!process.env.RESEND_API_KEY);
     console.error('RECEIVER_EMAIL set:', !!process.env.RECEIVER_EMAIL);
     
     res.status(500).json({ 
@@ -171,5 +147,6 @@ app.use((err, req, res, next) => {
 
 app.listen(PORT, () => {
   console.log(`🚀 Server is running on port ${PORT}`);
-  console.log(`📧 Email service configured: ${process.env.EMAIL_USER ? 'Yes' : 'No - Please configure .env file'}`);
+  console.log(`📧 Email service: Resend`);
+  console.log(`📧 Resend API Key configured: ${process.env.RESEND_API_KEY ? 'Yes' : 'No - Please configure .env file'}`);
 });
