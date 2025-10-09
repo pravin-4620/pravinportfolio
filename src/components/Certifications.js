@@ -128,51 +128,38 @@ const Certifications = () => {
       {/* Certificate Modal */}
       {selectedCert && (
         <div 
-          className="cert-modal-overlay" 
+          className="certificate-modal" 
           style={{ top: `${modalPosition.top}px` }}
           onClick={closeCertificate}
         >
-          <div className="cert-modal" onClick={(e) => e.stopPropagation()}>
-            <button className="cert-modal-close" onClick={closeCertificate}>
+          <div className="certificate-modal-content" onClick={(e) => e.stopPropagation()}>
+            <button className="certificate-close" onClick={closeCertificate}>
               <X size={24} />
             </button>
-            
-            <div className="cert-modal-content">
-              <div className="cert-modal-header">
-                <Award className="cert-modal-icon" size={48} />
-                <div>
-                  <h3 className="cert-modal-title">{selectedCert.title}</h3>
-                  <p className="cert-modal-issuer">{selectedCert.issuer}</p>
-                </div>
-              </div>
-              
-              <div className="cert-modal-body">
-                <div className="cert-viewer">
-                  <iframe
-                    src={selectedCert.image}
-                    className="cert-iframe"
-                    title="Certificate"
-                  />
-                </div>
-                
-                <div className="cert-modal-actions">
-                  <a 
-                    href={selectedCert.image}
-                    download={`${selectedCert.title.replace(/[^a-zA-Z0-9]/g, '_')}_Certificate.pdf`}
-                    className="btn btn-primary"
-                  >
-                    📥 Download Certificate
-                  </a>
-                  <a 
-                    href={selectedCert.image}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="btn btn-secondary"
-                  >
-                    🔗 Open in New Tab
-                  </a>
-                </div>
-              </div>
+            <h3 className="certificate-modal-title">{selectedCert.title}</h3>
+            <div className="certificate-viewer">
+              <iframe
+                src={selectedCert.image}
+                className="certificate-iframe"
+                title="Certificate"
+              />
+            </div>
+            <div className="certificate-actions">
+              <a 
+                href={selectedCert.image}
+                download={`${selectedCert.title.replace(/[^a-zA-Z0-9]/g, '_')}_Certificate.pdf`}
+                className="btn-download"
+              >
+                📥 Download Certificate
+              </a>
+              <a 
+                href={selectedCert.image}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-view"
+              >
+                🔗 Open in New Tab
+              </a>
             </div>
           </div>
         </div>
