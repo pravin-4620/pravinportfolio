@@ -20,8 +20,8 @@ const Certifications = () => {
     {
       id: 2,
       title: 'Full Stack Web Development',
-      issuer: 'freeCodeCamp',
-      date: 'December 2023',
+      issuer: 'Udemy',
+      date: 'September 2026',
       credentialId: 'FCC-CERT-123456',
       image: '/certificates/certificate.pdf',
       description: 'Completed comprehensive full-stack web development certification.',
@@ -69,12 +69,10 @@ const Certifications = () => {
     <section id="certifications" className="certifications">
       <div className="container">
         <h2 className="section-title">
-          <Award className="section-icon" />
+         
           Certifications & Achievements
         </h2>
-        <p className="section-description">
-          Professional certifications and achievements that validate my expertise
-        </p>
+        
         
         <div className="certifications-grid">
           {certifications.map((cert) => (
@@ -84,13 +82,7 @@ const Certifications = () => {
               onClick={() => openCertificate(cert)}
             >
               <div className="cert-header">
-                <Award className="cert-icon" size={32} />
-                {cert.verified && (
-                  <div className="verified-badge">
-                    <CheckCircle size={16} />
-                    Verified
-                  </div>
-                )}
+                
               </div>
               
               <h3 className="cert-title">{cert.title}</h3>
