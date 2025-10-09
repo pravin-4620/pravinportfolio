@@ -79,11 +79,17 @@ const Timeline = () => {
             </button>
             <h3 className="certificate-modal-title">SkillUp Tech Solutions - Internship Certificate</h3>
             <div className="certificate-viewer">
-              <iframe
-                src="/certificates/certificate.pdf"
-                title="Internship Certificate"
+              <object
+                data="/certificates/certificate.pdf#toolbar=0"
+                type="application/pdf"
                 className="certificate-iframe"
-              />
+              >
+                <embed
+                  src="/certificates/certificate.pdf#toolbar=0"
+                  type="application/pdf"
+                  className="certificate-iframe"
+                />
+              </object>
             </div>
             <div className="certificate-actions">
               <a 
@@ -91,7 +97,7 @@ const Timeline = () => {
                 download="SkillUp_Internship_Certificate.pdf"
                 className="btn-download"
               >
-                Download Certificate
+                📥 Download Certificate
               </a>
               <a 
                 href="/certificates/certificate.pdf" 
@@ -99,7 +105,7 @@ const Timeline = () => {
                 rel="noopener noreferrer"
                 className="btn-view"
               >
-                Open in New Tab
+                🔗 Open in New Tab
               </a>
             </div>
           </div>
