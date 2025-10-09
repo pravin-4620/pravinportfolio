@@ -1,21 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Briefcase, Building2Icon, GraduationCap, School, X } from 'lucide-react';
 
 const Timeline = () => {
   const [showCertificate, setShowCertificate] = useState(false);
-
-  // Prevent body scroll when modal is open
-  useEffect(() => {
-    if (showCertificate) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'unset';
-    }
-    
-    return () => {
-      document.body.style.overflow = 'unset';
-    };
-  }, [showCertificate]);
 
   const experiences = [
     {

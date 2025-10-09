@@ -1945,11 +1945,12 @@ a, button, .nav-link, .social-link, .project-link {
 
 /* Certificate Modal */
 .certificate-modal {
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
+  min-height: 100vh;
   background: rgba(0, 0, 0, 0.9);
   backdrop-filter: blur(10px);
   z-index: 10000;
@@ -1958,7 +1959,6 @@ a, button, .nav-link, .social-link, .project-link {
   justify-content: center;
   padding: 2rem;
   animation: fadeIn 0.3s ease-in-out;
-  overflow-y: auto;
 }
 
 .certificate-modal-content {
