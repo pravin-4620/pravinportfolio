@@ -1,8 +1,16 @@
 import React from 'react';
-import { Briefcase, Building2Icon, GraduationCap } from 'lucide-react';
+import { Briefcase, Building2Icon, GraduationCap, School } from 'lucide-react';
 
 const Timeline = () => {
   const experiences = [
+    {
+      type: 'Education',
+      icon: <School size={24} />,
+      title: 'Higher Secondary Education',
+      company: 'ST.Judes Public School & Junior College',
+      period: '2022 - 2023',
+      //description: 'Pursuing a degree in Computer Science with a focus on software development and data structures.'
+    },
     {
       type: 'Education',
       icon: <GraduationCap size={24} />,
@@ -13,14 +21,6 @@ const Timeline = () => {
     },
     {
       type: 'Internship',
-      icon: <Briefcase size={24} />,
-      title: 'Front End Developer Intern',
-      company: 'Digital Agency',
-      period: '2021 - 2023',
-      description: 'Built responsive web applications and RESTful APIs for various clients.'
-    },
-    {
-      type: 'Internship',
       icon: <Building2Icon size={24} />,
       title: 'Front End Developer Intern',
       company: 'SkillUp Tech Solutions',
@@ -28,19 +28,19 @@ const Timeline = () => {
       description: 'Worked on enhancing user interfaces and improving website performance.'
     },
     {
-      type: 'work',
-      icon: <Briefcase size={24} />,
-      title: 'Junior Developer',
-      company: 'StartUp Inc',
-      period: '2020 - 2021',
-      description: 'Developed frontend features and collaborated with design team.'
+      type: 'Internship',
+      icon: <Building2Icon size={24} />,
+      title: 'Market Research Intern',
+      company: 'CG - VAK Softwares & Exports Pvt Ltd',
+      period: 'June 2025 - July 2025',
+      description: 'Conducted market research and analysis to support business development efforts.'
     }
   ];
 
   return (
     <section id="timeline" className="timeline-section">
       <div className="container">
-        <h2 className="section-title">Experience & Education</h2>
+        <h2 className="section-title">Education & Experience</h2>
         <div className="timeline">
           {experiences.map((exp, index) => (
             <div key={index} className={`timeline-item ${exp.type}`}>

@@ -39,21 +39,21 @@ const Contact = () => {
                 <Mail size={24} />
                 <div>
                   <h4>Email</h4>
-                  <p>your.email@example.com</p>
+                  <p>pravinsurya2905@gmail.com</p>
                 </div>
               </div>
               <div className="contact-item">
                 <Phone size={24} />
                 <div>
                   <h4>Phone</h4>
-                  <p>+1 (555) 123-4567</p>
+                  <p>+91 7845952179</p>
                 </div>
               </div>
               <div className="contact-item">
                 <MapPin size={24} />
                 <div>
                   <h4>Location</h4>
-                  <p>Your City, Country</p>
+                  <p>Coimbatore, India</p>
                 </div>
               </div>
             </div>
