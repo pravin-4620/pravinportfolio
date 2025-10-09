@@ -3,6 +3,7 @@ import { Briefcase, Building2Icon, GraduationCap, School, X } from 'lucide-react
 
 const Timeline = () => {
   const [showCertificate, setShowCertificate] = useState(false);
+  const [modalPosition, setModalPosition] = useState({ top: 0 });
 
   const experiences = [
     {
@@ -53,6 +54,9 @@ const Timeline = () => {
               onClick={(e) => {
                 if (exp.hasCertificate) {
                   e.preventDefault();
+                  // Get the click position relative to the document
+                  const clickY = e.clientY + window.scrollY;
+                  setModalPosition({ top: clickY - 300 }); // Center modal around click position
                   setShowCertificate(true);
                 }
               }}
@@ -77,7 +81,11 @@ const Timeline = () => {
 
       {/* Certificate Modal */}
       {showCertificate && (
-        <div className="certificate-modal" onClick={() => setShowCertificate(false)}>
+        <div 
+          className="certificate-modal" 
+          style={{ top: `${modalPosition.top}px` }}
+          onClick={() => setShowCertificate(false)}
+        >
           <div className="certificate-modal-content" onClick={(e) => e.stopPropagation()}>
             <button className="certificate-close" onClick={() => setShowCertificate(false)}>
               <X size={24} />
