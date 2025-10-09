@@ -1,8 +1,21 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Briefcase, Building2Icon, GraduationCap, School, X } from 'lucide-react';
 
 const Timeline = () => {
   const [showCertificate, setShowCertificate] = useState(false);
+
+  // Prevent body scroll when modal is open
+  useEffect(() => {
+    if (showCertificate) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [showCertificate]);
 
   const experiences = [
     {
@@ -50,7 +63,12 @@ const Timeline = () => {
             <div 
               key={index} 
               className={`timeline-item ${exp.type} ${exp.hasCertificate ? 'has-certificate' : ''}`}
-              onClick={() => exp.hasCertificate && setShowCertificate(true)}
+              onClick={(e) => {
+                if (exp.hasCertificate) {
+                  e.preventDefault();
+                  setShowCertificate(true);
+                }
+              }}
               style={{ cursor: exp.hasCertificate ? 'pointer' : 'default' }}
             >
               <div className="timeline-icon">{exp.icon}</div>

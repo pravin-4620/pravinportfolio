@@ -1958,6 +1958,7 @@ a, button, .nav-link, .social-link, .project-link {
   justify-content: center;
   padding: 2rem;
   animation: fadeIn 0.3s ease-in-out;
+  overflow-y: auto;
 }
 
 .certificate-modal-content {
