@@ -3,56 +3,71 @@ import { Award, ExternalLink, X, Calendar, CheckCircle } from 'lucide-react';
 
 const Certifications = () => {
   const [selectedCert, setSelectedCert] = useState(null);
+  const [modalPosition, setModalPosition] = useState({ top: 0 });
 
   // Add your certifications here
   const certifications = [
     {
       id: 1,
-      title: 'AWS Certified Solutions Architect',
-      issuer: 'Amazon Web Services',
-      date: 'January 2024',
-      credentialId: 'AWS-12345-6789',
-      image: '/certificates/certificate.pdf',
-      description: 'Demonstrated expertise in designing distributed systems on AWS.',
-      skills: ['AWS', 'Cloud Architecture', 'System Design'],
-      verified: true
-    },
-    {
-      id: 2,
       title: 'Full Stack Web Development',
       issuer: 'Udemy',
-      date: 'September 2026',
-      credentialId: 'FCC-CERT-123456',
-      image: '/certificates/certificate.pdf',
+      date: 'September 2024',
+      credentialId: 'UC-FULLSTACK-2024',
+      image: '/certificates/fullstack.pdf',
       description: 'Completed comprehensive full-stack web development certification.',
       skills: ['React', 'Node.js', 'MongoDB', 'Express'],
       verified: true
     },
     {
-      id: 3,
-      title: 'JavaScript Algorithms and Data Structures',
-      issuer: 'freeCodeCamp',
-      date: 'November 2023',
-      credentialId: 'FCC-ALGO-789012',
-      image: '/certificates/certificate.pdf',
-      description: 'Mastered JavaScript algorithms and data structures.',
-      skills: ['JavaScript', 'Algorithms', 'Data Structures'],
-      verified: true
-    },
-    {
-      id: 4,
+      id: 2,
       title: 'React - The Complete Guide',
       issuer: 'Udemy',
       date: 'October 2023',
       credentialId: 'UC-REACT-456789',
-      image: '/certificates/certificate.pdf',
+      image: '/certificates/reactjs.pdf',
       description: 'Comprehensive React.js course covering hooks, context, and advanced patterns.',
       skills: ['React', 'Redux', 'React Router', 'Hooks'],
+      verified: true
+    },
+    {
+      id: 3,
+      title: 'Python Programming',
+      issuer: 'Online Certification',
+      date: 'November 2023',
+      credentialId: 'PYTHON-2023',
+      image: '/certificates/python.pdf',
+      description: 'Mastered Python programming fundamentals and advanced concepts.',
+      skills: ['Python', 'Data Structures', 'OOP'],
+      verified: true
+    },
+    {
+      id: 4,
+      title: 'Power BI Data Analytics',
+      issuer: 'Microsoft Learning',
+      date: 'December 2023',
+      credentialId: 'POWERBI-2023',
+      image: '/certificates/powerbi.pdf',
+      description: 'Data visualization and business intelligence with Power BI.',
+      skills: ['Power BI', 'Data Analytics', 'Visualization'],
+      verified: true
+    },
+    {
+      id: 5,
+      title: 'Tableau Data Visualization',
+      issuer: 'Tableau Learning',
+      date: 'January 2024',
+      credentialId: 'TABLEAU-2024',
+      image: '/certificates/tableu.pdf',
+      description: 'Advanced data visualization and dashboard creation with Tableau.',
+      skills: ['Tableau', 'Data Visualization', 'Dashboards'],
       verified: true
     }
   ];
 
-  const openCertificate = (cert) => {
+  const openCertificate = (cert, e) => {
+    // Get the click position relative to the document
+    const clickY = e.clientY + window.scrollY;
+    setModalPosition({ top: clickY - 450 }); // Position modal higher above click position
     setSelectedCert(cert);
   };
 
@@ -79,7 +94,7 @@ const Certifications = () => {
             <div 
               key={cert.id} 
               className="certification-card"
-              onClick={() => openCertificate(cert)}
+              onClick={(e) => openCertificate(cert, e)}
             >
               <div className="cert-header">
                 
@@ -112,7 +127,11 @@ const Certifications = () => {
 
       {/* Certificate Modal */}
       {selectedCert && (
-        <div className="cert-modal-overlay" onClick={closeCertificate}>
+        <div 
+          className="cert-modal-overlay" 
+          style={{ top: `${modalPosition.top}px` }}
+          onClick={closeCertificate}
+        >
           <div className="cert-modal" onClick={(e) => e.stopPropagation()}>
             <button className="cert-modal-close" onClick={closeCertificate}>
               <X size={24} />
@@ -128,51 +147,30 @@ const Certifications = () => {
               </div>
               
               <div className="cert-modal-body">
-                <div className="cert-modal-info">
-                  <div className="cert-info-item">
-                    <strong>Issued:</strong> {selectedCert.date}
-                  </div>
-                  <div className="cert-info-item">
-                    <strong>Credential ID:</strong> {selectedCert.credentialId}
-                  </div>
-                  <div className="cert-info-item">
-                    <strong>Status:</strong> 
-                    {selectedCert.verified && (
-                      <span className="verified-text">
-                        <CheckCircle size={16} />
-                        Verified
-                      </span>
-                    )}
-                  </div>
-                </div>
-                
-                <p className="cert-modal-description">{selectedCert.description}</p>
-                
-                <div className="cert-modal-skills">
-                  <strong>Skills Covered:</strong>
-                  <div className="cert-skills">
-                    {selectedCert.skills.map((skill, index) => (
-                      <span key={index} className="cert-skill-tag">
-                        {skill}
-                      </span>
-                    ))}
-                  </div>
+                <div className="cert-viewer">
+                  <iframe
+                    src={selectedCert.image}
+                    className="cert-iframe"
+                    title="Certificate"
+                  />
                 </div>
                 
                 <div className="cert-modal-actions">
-                  <button 
+                  <a 
+                    href={selectedCert.image}
+                    download={`${selectedCert.title.replace(/[^a-zA-Z0-9]/g, '_')}_Certificate.pdf`}
                     className="btn btn-primary"
-                    onClick={() => viewCertificateFile(selectedCert.image)}
                   >
-                    <ExternalLink size={20} />
-                    View Full Certificate
-                  </button>
-                  <button 
+                    📥 Download Certificate
+                  </a>
+                  <a 
+                    href={selectedCert.image}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="btn btn-secondary"
-                    onClick={closeCertificate}
                   >
-                    Close
-                  </button>
+                    🔗 Open in New Tab
+                  </a>
                 </div>
               </div>
             </div>
