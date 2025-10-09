@@ -4,6 +4,7 @@ import { Briefcase, Building2Icon, GraduationCap, School, X } from 'lucide-react
 const Timeline = () => {
   const [showCertificate, setShowCertificate] = useState(false);
   const [modalPosition, setModalPosition] = useState({ top: 0 });
+  const [activeCertificate, setActiveCertificate] = useState(null);
 
   const experiences = [
     {
@@ -38,7 +39,9 @@ const Timeline = () => {
       title: 'Market Research Intern',
       company: 'CG - VAK Softwares & Exports Pvt Ltd',
       period: 'June 2025 - July 2025',
-      description: 'Conducted market research and analysis to support business development efforts.'
+      description: 'Conducted market research and analysis to support business development efforts.',
+      hasCertificate: true,
+      certificatePath: '/certificates/cgvak-certificate.pdf'
     }
   ];
 
@@ -57,6 +60,7 @@ const Timeline = () => {
                   // Get the click position relative to the document
                   const clickY = e.clientY + window.scrollY;
                   setModalPosition({ top: clickY - 450 }); // Position modal higher above click position
+                  setActiveCertificate(exp);
                   setShowCertificate(true);
                 }
               }}
@@ -70,7 +74,7 @@ const Timeline = () => {
                 <p className="timeline-description">{exp.description}</p>
                 {exp.hasCertificate && (
                   <p className="certificate-hint">
-                    📜 View certificate
+                    View certificate
                   </p>
                 )}
               </div>
@@ -80,7 +84,7 @@ const Timeline = () => {
       </div>
 
       {/* Certificate Modal */}
-      {showCertificate && (
+      {showCertificate && activeCertificate && (
         <div 
           className="certificate-modal" 
           style={{ top: `${modalPosition.top}px` }}
@@ -90,24 +94,24 @@ const Timeline = () => {
             <button className="certificate-close" onClick={() => setShowCertificate(false)}>
               <X size={24} />
             </button>
-            <h3 className="certificate-modal-title">SkillUp Tech Solutions - Internship Certificate</h3>
+            <h3 className="certificate-modal-title">{activeCertificate.company} - Internship Certificate</h3>
             <div className="certificate-viewer">
               <iframe
-                src="/certificates/certificate.pdf"
+                src={activeCertificate.certificatePath}
                 className="certificate-iframe"
                 title="Certificate"
               />
             </div>
             <div className="certificate-actions">
               <a 
-                href="/certificates/certificate.pdf" 
-                download="SkillUp_Internship_Certificate.pdf"
+                href={activeCertificate.certificatePath}
+                download={`${activeCertificate.company.replace(/[^a-zA-Z0-9]/g, '_')}_Certificate.pdf`}
                 className="btn-download"
               >
                 📥 Download Certificate
               </a>
               <a 
-                href="/certificates/certificate.pdf" 
+                href={activeCertificate.certificatePath}
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="btn-view"
