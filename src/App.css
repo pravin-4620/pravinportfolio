@@ -1938,16 +1938,6 @@ a, button, .nav-link, .social-link, .project-link {
   opacity: 0.8;
 }
 
-.timeline-item.has-certificate {
-  transition: all 0.3s ease;
-}
-
-.timeline-item.has-certificate:hover {
-  transform: translateY(-5px) scale(1.02);
-  box-shadow: 0 10px 30px rgba(0, 217, 255, 0.3);
-  border-color: var(--neon-blue);
-}
-
 .timeline-item.has-certificate:hover .certificate-hint {
   color: var(--neon-pink);
   opacity: 1;
