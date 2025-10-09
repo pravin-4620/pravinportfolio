@@ -64,12 +64,12 @@ const ContactEnhanced = () => {
       setServerError('');
 
       try {
-        const response = await fetch('https://pravin-portfolio-backend.onrender.com/api/contact', {
+        // Call Vercel serverless function
+        const response = await fetch('https://backend-self-theta-72.vercel.app/api/contact', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
           },
-          credentials: 'include',
           body: JSON.stringify(formData),
         });
 
@@ -86,7 +86,7 @@ const ContactEnhanced = () => {
         }
       } catch (error) {
         console.error('Error submitting form:', error);
-        setServerError('Unable to connect to server. Please try again later.');
+        setServerError('Unable to send message. Please try again later.');
       } finally {
         setLoading(false);
       }
