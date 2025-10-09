@@ -61,7 +61,7 @@ const Timeline = () => {
                 <p className="timeline-description">{exp.description}</p>
                 {exp.hasCertificate && (
                   <p className="certificate-hint">
-                    📜 Click to view certificate
+                    📜 View certificate
                   </p>
                 )}
               </div>

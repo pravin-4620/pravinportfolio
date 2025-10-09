@@ -1927,14 +1927,15 @@ a, button, .nav-link, .social-link, .project-link {
 
 /* Certificate Hint */
 .certificate-hint {
-  margin-top: 0.75rem;
+  margin-top: 0.5rem;
   color: var(--neon-blue);
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   font-weight: 500;
   display: flex;
   align-items: center;
   gap: 0.5rem;
   animation: pulse 2s ease-in-out infinite;
+  opacity: 0.8;
 }
 
 .timeline-item.has-certificate {
@@ -1942,13 +1943,14 @@ a, button, .nav-link, .social-link, .project-link {
 }
 
 .timeline-item.has-certificate:hover {
-  transform: translateY(-5px);
+  transform: translateY(-5px) scale(1.02);
   box-shadow: 0 10px 30px rgba(0, 217, 255, 0.3);
   border-color: var(--neon-blue);
 }
 
 .timeline-item.has-certificate:hover .certificate-hint {
   color: var(--neon-pink);
+  opacity: 1;
 }
 
 /* Certificate Modal */
