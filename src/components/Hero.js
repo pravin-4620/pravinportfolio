@@ -59,7 +59,7 @@ const Hero = () => {
               <Download size={20} />
               Download Resume
             </a>
-            <a href="/resume.pdf" target="_blank" rel="noopener noreferrer" className="btn btn-resume-outline">
+            <a href="/Users/pravin/Documents/portfolio/public/resume.pdf" target="_blank" rel="noopener noreferrer" className="btn btn-resume-outline">
               <Eye size={20} />
               View Resume
             </a>
