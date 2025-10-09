@@ -56,7 +56,7 @@ const Timeline = () => {
                   e.preventDefault();
                   // Get the click position relative to the document
                   const clickY = e.clientY + window.scrollY;
-                  setModalPosition({ top: clickY - 300 }); // Center modal around click position
+                  setModalPosition({ top: clickY - 450 }); // Position modal higher above click position
                   setShowCertificate(true);
                 }
               }}
@@ -92,17 +92,11 @@ const Timeline = () => {
             </button>
             <h3 className="certificate-modal-title">SkillUp Tech Solutions - Internship Certificate</h3>
             <div className="certificate-viewer">
-              <object
-                data="/certificates/certificate.pdf#toolbar=0"
-                type="application/pdf"
+              <iframe
+                src="/certificates/certificate.pdf"
                 className="certificate-iframe"
-              >
-                <embed
-                  src="/certificates/certificate.pdf#toolbar=0"
-                  type="application/pdf"
-                  className="certificate-iframe"
-                />
-              </object>
+                title="Certificate"
+              />
             </div>
             <div className="certificate-actions">
               <a 
