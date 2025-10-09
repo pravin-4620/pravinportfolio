@@ -1,7 +1,9 @@
-import React from 'react';
-import { Briefcase, Building2Icon, GraduationCap, School } from 'lucide-react';
+import React, { useState } from 'react';
+import { Briefcase, Building2Icon, GraduationCap, School, X } from 'lucide-react';
 
 const Timeline = () => {
+  const [showCertificate, setShowCertificate] = useState(false);
+
   const experiences = [
     {
       type: 'Education',
@@ -25,7 +27,9 @@ const Timeline = () => {
       title: 'Front End Developer Intern',
       company: 'SkillUp Tech Solutions',
       period: 'OCT 2024 - DEC 2024',
-      description: 'Worked on enhancing user interfaces and improving website performance.'
+      description: 'Worked on enhancing user interfaces and improving website performance.',
+      hasCertificate: true,
+      certificatePath: '/certificates/certificate.pdf'
     },
     {
       type: 'Internship',
@@ -43,18 +47,64 @@ const Timeline = () => {
         <h2 className="section-title">Education & Experience</h2>
         <div className="timeline">
           {experiences.map((exp, index) => (
-            <div key={index} className={`timeline-item ${exp.type}`}>
+            <div 
+              key={index} 
+              className={`timeline-item ${exp.type} ${exp.hasCertificate ? 'has-certificate' : ''}`}
+              onClick={() => exp.hasCertificate && setShowCertificate(true)}
+              style={{ cursor: exp.hasCertificate ? 'pointer' : 'default' }}
+            >
               <div className="timeline-icon">{exp.icon}</div>
               <div className="timeline-content">
                 <div className="timeline-period">{exp.period}</div>
                 <h3 className="timeline-title">{exp.title}</h3>
                 <h4 className="timeline-company">{exp.company}</h4>
                 <p className="timeline-description">{exp.description}</p>
+                {exp.hasCertificate && (
+                  <p className="certificate-hint">
+                    📜 Click to view certificate
+                  </p>
+                )}
               </div>
             </div>
           ))}
         </div>
       </div>
+
+      {/* Certificate Modal */}
+      {showCertificate && (
+        <div className="certificate-modal" onClick={() => setShowCertificate(false)}>
+          <div className="certificate-modal-content" onClick={(e) => e.stopPropagation()}>
+            <button className="certificate-close" onClick={() => setShowCertificate(false)}>
+              <X size={24} />
+            </button>
+            <h3 className="certificate-modal-title">SkillUp Tech Solutions - Internship Certificate</h3>
+            <div className="certificate-viewer">
+              <iframe
+                src="/certificates/certificate.pdf"
+                title="Internship Certificate"
+                className="certificate-iframe"
+              />
+            </div>
+            <div className="certificate-actions">
+              <a 
+                href="/certificates/certificate.pdf" 
+                download="SkillUp_Internship_Certificate.pdf"
+                className="btn-download"
+              >
+                Download Certificate
+              </a>
+              <a 
+                href="/certificates/certificate.pdf" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="btn-view"
+              >
+                Open in New Tab
+              </a>
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   );
 };
