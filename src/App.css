@@ -1972,6 +1972,9 @@ a, button, .nav-link, .social-link, .project-link {
   position: relative;
   box-shadow: 0 0 50px rgba(0, 217, 255, 0.5);
   animation: slideUp 0.3s ease-out;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
 }
 
 @keyframes slideUp {
