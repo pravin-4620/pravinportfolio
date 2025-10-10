@@ -2498,6 +2498,7 @@ a, button, .nav-link, .social-link, .project-link {
   border: 1px solid var(--border-color);
   text-align: center;
   transition: all 0.3s ease;
+  min-width: 0;
 }
 
 .contact-info-card:hover {
@@ -2533,6 +2534,9 @@ a, button, .nav-link, .social-link, .project-link {
   font-weight: 600;
   text-decoration: none;
   transition: color 0.3s ease;
+  word-break: break-word; 
+  overflow-wrap: break-word; 
+  max-width: 100%; 
 }
 
 .contact-info-value:hover {
