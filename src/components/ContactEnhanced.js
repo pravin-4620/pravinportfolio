@@ -97,19 +97,18 @@ const ContactEnhanced = () => {
     {
       icon: <Mail size={24} />,
       label: 'Email',
-      value: 'your.email@example.com',
-      link: 'mailto:your.email@example.com'
+      value: 'pravinsurya2905@gmail.com',
+      link: 'mailto:pravinsurya2905@gmail.com'
     },
     {
       icon: <Phone size={24} />,
       label: 'Phone',
-      value: '+1 (555) 123-4567',
-      link: 'tel:+15551234567'
+      value: '+91 7845952179',
     },
     {
       icon: <MapPin size={24} />,
       label: 'Location',
-      value: 'San Francisco, CA',
+      value: 'Coimbatore, India',
       link: null
     }
   ];
