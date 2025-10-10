@@ -1,9 +1,7 @@
 // Vercel Serverless Function for Contact Form
 // This runs on Vercel's edge network - no backend server needed!
 
-import { Resend } from 'resend';
-
-const resend = new Resend(process.env.RESEND_API_KEY);
+import nodemailer from 'nodemailer';
 
 export default async function handler(req, res) {
   // Only allow POST requests
@@ -42,11 +40,20 @@ export default async function handler(req, res) {
       });
     }
 
+    // Create transporter
+    const transporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS,
+      },
+    });
+
     // Send both emails in parallel
     const [emailToOwner, emailToSender] = await Promise.allSettled([
       // Email to you (the portfolio owner)
-      resend.emails.send({
-        from: 'Portfolio Contact <onboarding@resend.dev>',
+      transporter.sendMail({
+        from: process.env.EMAIL_USER,
         to: process.env.RECEIVER_EMAIL || 'pravinsurya2905@gmail.com',
         replyTo: email,
         subject: `Portfolio Contact: ${subject}`,
@@ -76,8 +83,8 @@ export default async function handler(req, res) {
       }),
       
       // Auto-reply to the sender
-      resend.emails.send({
-        from: 'Pravin - Portfolio <onboarding@resend.dev>',
+      transporter.sendMail({
+        from: process.env.EMAIL_USER,
         to: email,
         subject: 'Thank you for contacting me!',
         html: `
