@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, Shield } from 'lucide-react';
 
-const Header = () => {
+const Header = ({ onAdminClick }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
@@ -68,6 +68,10 @@ const Header = () => {
             <button onClick={() => scrollToSection('timeline')} className={`nav-link ${activeSection === 'timeline' ? 'active' : ''}`}>Timeline</button>
             <button onClick={() => scrollToSection('certifications')} className={`nav-link ${activeSection === 'certifications' ? 'active' : ''}`}>Certifications</button>
             <button onClick={() => scrollToSection('contact')} className={`nav-link ${activeSection === 'contact' ? 'active' : ''}`}>Contact</button>
+            <button onClick={onAdminClick} className="nav-link admin-link">
+              <Shield size={18} />
+              Admin
+            </button>
           </nav>
         </div>
       </div>

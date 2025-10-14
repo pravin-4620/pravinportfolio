@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
-import { Award, ExternalLink, X, Calendar, CheckCircle } from 'lucide-react';
+import { Award, ExternalLink, X, Calendar, Download, Eye } from 'lucide-react';
 
 const Certifications = () => {
   const [selectedCert, setSelectedCert] = useState(null);
-  const [modalPosition, setModalPosition] = useState({ top: 0 });
 
   // Add your certifications here
   const certifications = [
@@ -64,40 +63,32 @@ const Certifications = () => {
     }
   ];
 
-  const openCertificate = (cert, e) => {
-    // Get the click position relative to the document
-    const clickY = e.clientY + window.scrollY;
-    setModalPosition({ top: clickY - 450 }); // Position modal higher above click position
+  const openCertificate = (cert) => {
     setSelectedCert(cert);
+    document.body.style.overflow = 'hidden';
   };
 
   const closeCertificate = () => {
     setSelectedCert(null);
-  };
-
-  const viewCertificateFile = (imagePath) => {
-    // Open certificate in new tab
-    window.open(imagePath, '_blank');
+    document.body.style.overflow = 'unset';
   };
 
   return (
     <section id="certifications" className="certifications">
       <div className="container">
         <h2 className="section-title">
-         
           Certifications & Achievements
         </h2>
-        
         
         <div className="certifications-grid">
           {certifications.map((cert) => (
             <div 
               key={cert.id} 
               className="certification-card"
-              onClick={(e) => openCertificate(cert, e)}
+              onClick={() => openCertificate(cert)}
             >
               <div className="cert-header">
-                
+                <Award className="cert-icon" size={32} />
               </div>
               
               <h3 className="cert-title">{cert.title}</h3>
@@ -125,41 +116,47 @@ const Certifications = () => {
         </div>
       </div>
 
-      {/* Certificate Modal */}
+      {/* Certificate Modal - Only PDF Display */}
       {selectedCert && (
         <div 
-          className="certificate-modal" 
-          style={{ top: `${modalPosition.top}px` }}
+          className="cert-modal-overlay"
           onClick={closeCertificate}
         >
-          <div className="certificate-modal-content" onClick={(e) => e.stopPropagation()}>
-            <button className="certificate-close" onClick={closeCertificate}>
-              <X size={24} />
+          <div className="cert-modal cert-modal-minimal" onClick={(e) => e.stopPropagation()}>
+            <button className="cert-modal-close" onClick={closeCertificate}>
+              <X size={20} />
             </button>
-            <h3 className="certificate-modal-title">{selectedCert.title}</h3>
-            <div className="certificate-viewer">
-              <iframe
-                src={selectedCert.image}
-                className="certificate-iframe"
-                title="Certificate"
-              />
-            </div>
-            <div className="certificate-actions">
-              <a 
-                href={selectedCert.image}
-                download={`${selectedCert.title.replace(/[^a-zA-Z0-9]/g, '_')}_Certificate.pdf`}
-                className="btn-download"
-              >
-                📥 Download Certificate
-              </a>
-              <a 
-                href={selectedCert.image}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn-view"
-              >
-                🔗 Open in New Tab
-              </a>
+            
+            <div className="cert-modal-content cert-modal-content-minimal">
+              {/* Only PDF Viewer */}
+              <div className="cert-viewer cert-viewer-fullscreen">
+                <iframe
+                  src={`${selectedCert.image}#view=FitH&toolbar=0&navpanes=0&scrollbar=0`}
+                  className="cert-iframe"
+                  title={selectedCert.title}
+                />
+              </div>
+
+              {/* Only Action Buttons */}
+              <div className="cert-modal-actions cert-modal-actions-minimal">
+                <a 
+                  href={selectedCert.image}
+                  download={`${selectedCert.title.replace(/[^a-zA-Z0-9]/g, '_')}_Certificate.pdf`}
+                  className="btn btn-primary"
+                >
+                  <Download size={18} />
+                  Download
+                </a>
+                <a 
+                  href={selectedCert.image}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn btn-secondary"
+                >
+                  <Eye size={18} />
+                  Open in New Tab
+                </a>
+              </div>
             </div>
           </div>
         </div>

@@ -1,10 +1,14 @@
 import React, { useState } from 'react';
-import { Briefcase, Building2Icon, GraduationCap, School, X } from 'lucide-react';
+import { Building2Icon, GraduationCap, School, X, Download, Eye } from 'lucide-react';
 
 const Timeline = () => {
   const [showCertificate, setShowCertificate] = useState(false);
-  const [modalPosition, setModalPosition] = useState({ top: 0 });
   const [activeCertificate, setActiveCertificate] = useState(null);
+
+  const closeCertificate = () => {
+    setShowCertificate(false);
+    document.body.style.overflow = 'unset';
+  };
 
   const experiences = [
     {
@@ -57,11 +61,9 @@ const Timeline = () => {
               onClick={(e) => {
                 if (exp.hasCertificate) {
                   e.preventDefault();
-                  // Get the click position relative to the document
-                  const clickY = e.clientY + window.scrollY;
-                  setModalPosition({ top: clickY - 450 }); // Position modal higher above click position
                   setActiveCertificate(exp);
                   setShowCertificate(true);
+                  document.body.style.overflow = 'hidden';
                 }
               }}
               style={{ cursor: exp.hasCertificate ? 'pointer' : 'default' }}
@@ -83,41 +85,47 @@ const Timeline = () => {
         </div>
       </div>
 
-      {/* Certificate Modal */}
+      {/* Certificate Modal - Clean PDF Only */}
       {showCertificate && activeCertificate && (
         <div 
-          className="certificate-modal" 
-          style={{ top: `${modalPosition.top}px` }}
-          onClick={() => setShowCertificate(false)}
+          className="cert-modal-overlay"
+          onClick={closeCertificate}
         >
-          <div className="certificate-modal-content" onClick={(e) => e.stopPropagation()}>
-            <button className="certificate-close" onClick={() => setShowCertificate(false)}>
-              <X size={24} />
+          <div className="cert-modal cert-modal-minimal" onClick={(e) => e.stopPropagation()}>
+            <button className="cert-modal-close" onClick={closeCertificate}>
+              <X size={20} />
             </button>
-            <h3 className="certificate-modal-title">{activeCertificate.company} - Internship Certificate</h3>
-            <div className="certificate-viewer">
-              <iframe
-                src={activeCertificate.certificatePath}
-                className="certificate-iframe"
-                title="Certificate"
-              />
-            </div>
-            <div className="certificate-actions">
-              <a 
-                href={activeCertificate.certificatePath}
-                download={`${activeCertificate.company.replace(/[^a-zA-Z0-9]/g, '_')}_Certificate.pdf`}
-                className="btn-download"
-              >
-                📥 Download Certificate
-              </a>
-              <a 
-                href={activeCertificate.certificatePath}
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="btn-view"
-              >
-                🔗 Open in New Tab
-              </a>
+            
+            <div className="cert-modal-content cert-modal-content-minimal">
+              {/* Only PDF Viewer */}
+              <div className="cert-viewer cert-viewer-fullscreen">
+                <iframe
+                  src={`${activeCertificate.certificatePath}#view=FitH&toolbar=0&navpanes=0&scrollbar=0`}
+                  className="cert-iframe"
+                  title={`${activeCertificate.company} Certificate`}
+                />
+              </div>
+
+              {/* Only Action Buttons */}
+              <div className="cert-modal-actions cert-modal-actions-minimal">
+                <a 
+                  href={activeCertificate.certificatePath}
+                  download={`${activeCertificate.company.replace(/[^a-zA-Z0-9]/g, '_')}_Certificate.pdf`}
+                  className="btn btn-primary"
+                >
+                  <Download size={18} />
+                  Download
+                </a>
+                <a 
+                  href={activeCertificate.certificatePath}
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="btn btn-secondary"
+                >
+                  <Eye size={18} />
+                  Open in New Tab
+                </a>
+              </div>
             </div>
           </div>
         </div>

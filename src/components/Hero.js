@@ -1,11 +1,22 @@
 import React, { useState, useEffect } from 'react';
-import { Github, Linkedin, Mail, Code, Download, Eye } from 'lucide-react';
+import { Github, Linkedin, Mail, Code, Download, Eye, X } from 'lucide-react';
 
 const Hero = () => {
   const [typedText, setTypedText] = useState('');
+  const [showResume, setShowResume] = useState(false);
   const roles = ['Web Developer', 'Hardware Enthusiast', 'Mobile App Developer'];
   const [roleIndex, setRoleIndex] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
+
+  const openResume = () => {
+    setShowResume(true);
+    document.body.style.overflow = 'hidden';
+  };
+
+  const closeResume = () => {
+    setShowResume(false);
+    document.body.style.overflow = 'unset';
+  };
 
   useEffect(() => {
     const currentRole = roles[roleIndex];
@@ -55,14 +66,14 @@ const Hero = () => {
             </button>
           </div>
           <div className="resume-buttons">
-            <a href="/resume.pdf" download="Pravin_PT_Resume.pdf" className="btn btn-resume">
+            <a href="/certificates/resume.pdf" download="Pravin_PT_Resume.pdf" className="btn btn-resume">
               <Download size={20} />
               Download Resume
             </a>
-            <a href="/Users/pravin/Documents/portfolio/public/resume.pdf" target="_blank" rel="noopener noreferrer" className="btn btn-resume-outline">
+            <button onClick={openResume} className="btn btn-resume-outline">
               <Eye size={20} />
               View Resume
-            </a>
+            </button>
           </div>
           <div className="social-links">
             <a href="https://github.com/pravin-4620" target="_blank" rel="noopener noreferrer" className="social-link">
@@ -77,6 +88,52 @@ const Hero = () => {
           </div>
         </div>
       </div>
+
+      {/* Resume Modal */}
+      {showResume && (
+        <div 
+          className="cert-modal-overlay"
+          onClick={closeResume}
+        >
+          <div className="cert-modal cert-modal-minimal" onClick={(e) => e.stopPropagation()}>
+            <button className="cert-modal-close" onClick={closeResume}>
+              <X size={20} />
+            </button>
+            
+            <div className="cert-modal-content cert-modal-content-minimal">
+              {/* Only PDF Viewer */}
+              <div className="cert-viewer cert-viewer-fullscreen">
+                <iframe
+                  src="/certificates/resume.pdf#view=FitH&toolbar=0&navpanes=0&scrollbar=0"
+                  className="cert-iframe"
+                  title="Resume"
+                />
+              </div>
+
+              {/* Only Action Buttons */}
+              <div className="cert-modal-actions cert-modal-actions-minimal">
+                <a 
+                  href="/certificates/resume.pdf"
+                  download="Pravin_PT_Resume.pdf"
+                  className="btn btn-primary"
+                >
+                  <Download size={18} />
+                  Download
+                </a>
+                <a 
+                  href="/certificates/resume.pdf"
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="btn btn-secondary"
+                >
+                  <Eye size={18} />
+                  Open in New Tab
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   );
 };
