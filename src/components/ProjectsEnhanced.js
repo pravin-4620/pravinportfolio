@@ -12,7 +12,21 @@ const ProjectModal = ({ project, onClose }) => {
         </button>
         
         <div className="modal-image">
-          <img src={project.image} alt={project.title} />
+          <div className="preview-browser-bar modal-browser-bar">
+            <span className="preview-dot" style={{background:'#ff5f57'}}></span>
+            <span className="preview-dot" style={{background:'#febc2e'}}></span>
+            <span className="preview-dot" style={{background:'#28c840'}}></span>
+            <span className="preview-url-bar">{project.live.replace('https://','')}</span>
+          </div>
+          <div className="modal-iframe-wrap">
+            <iframe
+              src={project.live}
+              title={project.title}
+              className="modal-preview-iframe"
+              loading="lazy"
+              sandbox="allow-scripts allow-same-origin allow-forms"
+            />
+          </div>
         </div>
         
         <div className="modal-body">
@@ -65,110 +79,42 @@ const ProjectsEnhanced = () => {
 
   const projects = [
     {
-      title: "E-Commerce Platform",
-      description: "A full-stack e-commerce application with shopping cart, payment integration, and admin dashboard.",
-      fullDescription: "Built a comprehensive e-commerce solution handling 10k+ daily users. Implemented real-time inventory tracking, secure payment processing with Stripe, and an advanced admin panel for managing products, orders, and analytics.",
+      title: "Campus Connect",
+      description: "A full-stack campus social platform connecting students with real-time features, authentication, and a modern responsive UI.",
+      fullDescription: "Campus Connect is a TypeScript-based campus networking platform designed to bridge the communication gap between students. It features secure JWT authentication, a clean dashboard, and a responsive interface built for real campus use cases.",
       features: [
-        "Real-time inventory management",
-        "Stripe payment integration",
-        "Admin dashboard with analytics",
-        "Product search and filtering",
-        "Order tracking system"
+        "Secure user authentication & registration",
+        "Campus-specific feeds and networking",
+        "Responsive UI for mobile and desktop",
+        "Real-time interaction support",
+        "Deployed on Vercel for fast global access"
       ],
-      technologies: ["React", "Node.js", "MongoDB", "Stripe", "Redis"],
+      technologies: ["TypeScript", "React", "Node.js", "JavaScript", "Vercel"],
       category: "Full Stack",
-      github: "https://github.com",
-      live: "https://example.com",
-      image: "https://via.placeholder.com/400x250/4f46e5/ffffff?text=E-Commerce+Platform"
+      github: "https://github.com/pravin-4620/Connect.git",
+      live: "https://campusconnectfrontend-six.vercel.app/login",
+      image: "https://image.thum.io/get/width/600/crop/400/https://campusconnectfrontend-six.vercel.app/login"
     },
     {
-      title: "Task Management App",
-      description: "A collaborative task management tool with real-time updates and team collaboration features.",
-      fullDescription: "Developed a Trello-like task management system with real-time collaboration. Features drag-and-drop kanban boards, team chat, file attachments, and deadline notifications.",
+      title: "FireStore",
+      description: "A production-ready multi-vendor e-commerce marketplace with seller authentication, Razorpay payments, order tracking, and PDF invoice generation.",
+      fullDescription: "FireStore is a comprehensive full-stack cracker shopping platform with separate customer, seller, and admin roles. It includes Razorpay payment gateway integration, GST-calculated PDF invoices, stock management, multi-status order tracking, and a full admin panel for seller approval and analytics.",
       features: [
-        "Drag-and-drop kanban boards",
-        "Real-time collaboration",
-        "Team chat integration",
-        "File attachments",
-        "Email notifications"
+        "Multi-vendor seller registration & admin approval",
+        "Razorpay payment gateway (UPI, cards, net banking)",
+        "Automatic GST-calculated PDF invoice generation",
+        "Multi-status order tracking (Ordered → Delivered)",
+        "Admin dashboard with sales analytics"
       ],
-      technologies: ["React", "Firebase", "Material-UI", "Socket.io"],
-      category: "Frontend",
-      github: "https://github.com",
-      live: "https://example.com",
-      image: "https://via.placeholder.com/400x250/06b6d4/ffffff?text=Task+Manager"
-    },
-    {
-      title: "Weather Dashboard",
-      description: "A weather dashboard that displays current weather and forecasts using external APIs.",
-      fullDescription: "Interactive weather application with beautiful visualizations. Provides 7-day forecasts, hourly updates, weather maps, and historical data with Chart.js visualizations.",
-      features: [
-        "7-day weather forecast",
-        "Hourly weather updates",
-        "Interactive weather maps",
-        "Historical data charts",
-        "Location-based search"
-      ],
-      technologies: ["React", "OpenWeather API", "Chart.js", "Mapbox"],
-      category: "Frontend",
-      github: "https://github.com",
-      live: "https://example.com",
-      image: "https://via.placeholder.com/400x250/10b981/ffffff?text=Weather+Dashboard"
-    },
-    {
-      title: "Social Media Clone",
-      description: "A social media platform with posts, comments, likes, and user authentication.",
-      fullDescription: "Full-featured social media application with posts, stories, messaging, and friend systems. Implements JWT authentication, image uploads to AWS S3, and real-time messaging.",
-      features: [
-        "User authentication & profiles",
-        "Post creation with images",
-        "Real-time messaging",
-        "Like and comment system",
-        "Friend/Follow system"
-      ],
-      technologies: ["React", "Express", "PostgreSQL", "JWT", "AWS S3"],
+      technologies: ["React", "Node.js", "MongoDB", "Express", "Razorpay"],
       category: "Full Stack",
-      github: "https://github.com",
-      live: "https://example.com",
-      image: "https://via.placeholder.com/400x250/f59e0b/ffffff?text=Social+Media"
-    },
-    {
-      title: "REST API Service",
-      description: "Scalable RESTful API with authentication, rate limiting, and comprehensive documentation.",
-      fullDescription: "Built a production-ready REST API serving 1M+ requests daily. Includes JWT authentication, role-based access control, rate limiting, caching with Redis, and auto-generated Swagger documentation.",
-      features: [
-        "JWT authentication",
-        "Rate limiting & throttling",
-        "Redis caching",
-        "Swagger documentation",
-        "Error handling middleware"
-      ],
-      technologies: ["Node.js", "Express", "PostgreSQL", "Redis", "Docker"],
-      category: "Backend",
-      github: "https://github.com",
-      live: "https://example.com",
-      image: "https://via.placeholder.com/400x250/8b5cf6/ffffff?text=REST+API"
-    },
-    {
-      title: "AI Chat Assistant",
-      description: "Intelligent chatbot powered by OpenAI with context-aware conversations.",
-      fullDescription: "AI-powered chat assistant with natural language processing. Features conversation memory, multi-language support, and integration with various APIs for weather, news, and more.",
-      features: [
-        "OpenAI GPT integration",
-        "Context-aware responses",
-        "Multi-language support",
-        "API integrations",
-        "Conversation history"
-      ],
-      technologies: ["React", "Node.js", "OpenAI API", "MongoDB", "Socket.io"],
-      category: "Full Stack",
-      github: "https://github.com",
-      live: "https://example.com",
-      image: "https://via.placeholder.com/400x250/ec4899/ffffff?text=AI+Assistant"
+      github: "https://github.com/pravin-4620/FireStore.git",
+      live: "https://fire-store-jet.vercel.app",
+      image: "https://image.thum.io/get/width/600/crop/400/https://fire-store-jet.vercel.app"
     }
   ];
 
-  const categories = ['All', 'Full Stack', 'Frontend', 'Backend'];
+  const categories = ['All', 'Full Stack'];
   const filteredProjects = filter === 'All' 
     ? projects 
     : projects.filter(project => project.category === filter);
@@ -193,13 +139,28 @@ const ProjectsEnhanced = () => {
         <div className="projects-grid">
           {filteredProjects.map((project, index) => (
             <div key={index} className="project-card fade-in">
-              <div className="project-image">
-                <img src={project.image} alt={project.title} />
-                <button 
+              {/* Live Browser Preview */}
+              <div className="project-preview-wrap">
+                <div className="preview-browser-bar">
+                  <span className="preview-dot" style={{background:'#ff5f57'}}></span>
+                  <span className="preview-dot" style={{background:'#febc2e'}}></span>
+                  <span className="preview-dot" style={{background:'#28c840'}}></span>
+                  <span className="preview-url-bar">{project.live.replace('https://','')}</span>
+                </div>
+                <div className="preview-iframe-wrap">
+                  <iframe
+                    src={project.live}
+                    title={project.title}
+                    className="preview-iframe"
+                    loading="lazy"
+                    sandbox="allow-scripts allow-same-origin allow-forms"
+                  />
+                </div>
+                <button
                   className="project-expand"
                   onClick={() => setSelectedProject(project)}
                 >
-                  <Maximize2 size={20} />
+                  <Maximize2 size={18} />
                   View Details
                 </button>
               </div>

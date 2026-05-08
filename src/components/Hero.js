@@ -4,7 +4,7 @@ import { Github, Linkedin, Mail, Code, Download, Eye, X } from 'lucide-react';
 const Hero = () => {
   const [typedText, setTypedText] = useState('');
   const [showResume, setShowResume] = useState(false);
-  const roles = ['Web Developer', 'Hardware Enthusiast', 'Mobile App Developer'];
+  const roles = ['Web Developer', 'Hardware Enthusiast'];
   const [roleIndex, setRoleIndex] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
 
@@ -89,48 +89,81 @@ const Hero = () => {
         </div>
       </div>
 
-      {/* Resume Modal */}
+      {/* Resume Viewer Modal - Split Panel */}
       {showResume && (
-        <div 
-          className="cert-modal-overlay"
-          onClick={closeResume}
-        >
-          <div className="cert-modal cert-modal-minimal" onClick={(e) => e.stopPropagation()}>
-            <button className="cert-modal-close" onClick={closeResume}>
-              <X size={20} />
-            </button>
-            
-            <div className="cert-modal-content cert-modal-content-minimal">
-              {/* Only PDF Viewer */}
-              <div className="cert-viewer cert-viewer-fullscreen">
-                <iframe
-                  src="/certificates/resume.pdf#view=FitH&toolbar=0&navpanes=0&scrollbar=0"
-                  className="cert-iframe"
-                  title="Resume"
-                />
+        <div className="doc-viewer-overlay" onClick={closeResume}>
+          <div className="doc-viewer-panel" onClick={(e) => e.stopPropagation()}>
+
+            {/* Left: Info Panel */}
+            <div className="doc-info-panel">
+              <div className="doc-info-header">
+                <div className="doc-info-icon">
+                  <Eye size={28} />
+                </div>
+                <span className="doc-info-badge">Resume</span>
               </div>
 
-              {/* Only Action Buttons */}
-              <div className="cert-modal-actions cert-modal-actions-minimal">
-                <a 
+              <h2 className="doc-info-title">Pravin PT</h2>
+              <p className="doc-info-issuer">Full Stack Developer</p>
+
+              <div className="doc-info-meta">
+                <div className="doc-meta-row">
+                  <Mail size={15} />
+                  <span>pravinsurya2905@gmail.com</span>
+                </div>
+                <div className="doc-meta-row">
+                  <Github size={15} />
+                  <span>github.com/pravin-4620</span>
+                </div>
+              </div>
+
+              <p className="doc-info-description">
+                Passionate Full Stack Developer with hands-on experience in building responsive web applications and robust backend systems.
+              </p>
+
+              <div className="doc-skills">
+                <p className="doc-skills-label">Core Skills</p>
+                <div className="doc-skills-list">
+                  {['React', 'Node.js', 'MongoDB', 'Express', 'Python', 'Docker'].map((s, i) => (
+                    <span key={i} className="doc-skill-tag">{s}</span>
+                  ))}
+                </div>
+              </div>
+
+              <div className="doc-info-actions">
+                <a
                   href="/certificates/resume.pdf"
                   download="Pravin_PT_Resume.pdf"
-                  className="btn btn-primary"
+                  className="doc-btn doc-btn-primary"
                 >
-                  <Download size={18} />
-                  Download
+                  <Download size={16} /> Download PDF
                 </a>
-                <a 
+                <a
                   href="/certificates/resume.pdf"
-                  target="_blank" 
+                  target="_blank"
                   rel="noopener noreferrer"
-                  className="btn btn-secondary"
+                  className="doc-btn doc-btn-outline"
                 >
-                  <Eye size={18} />
-                  Open in New Tab
+                  <Eye size={16} /> Open in Tab
                 </a>
               </div>
             </div>
+
+            {/* Right: PDF Viewer */}
+            <div className="doc-pdf-panel">
+              <div className="doc-pdf-topbar">
+                <span className="doc-pdf-filename">Pravin_PT_Resume.pdf</span>
+                <button className="doc-close-btn" onClick={closeResume}>
+                  <X size={18} />
+                </button>
+              </div>
+              <iframe
+                src="/certificates/resume.pdf#view=FitH&toolbar=0&navpanes=0&scrollbar=0"
+                className="doc-pdf-frame"
+                title="Resume"
+              />
+            </div>
+
           </div>
         </div>
       )}

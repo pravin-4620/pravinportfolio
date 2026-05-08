@@ -85,48 +85,68 @@ const Timeline = () => {
         </div>
       </div>
 
-      {/* Certificate Modal - Clean PDF Only */}
+      {/* Certificate Viewer - Split Panel */}
       {showCertificate && activeCertificate && (
-        <div 
-          className="cert-modal-overlay"
-          onClick={closeCertificate}
-        >
-          <div className="cert-modal cert-modal-minimal" onClick={(e) => e.stopPropagation()}>
-            <button className="cert-modal-close" onClick={closeCertificate}>
-              <X size={20} />
-            </button>
-            
-            <div className="cert-modal-content cert-modal-content-minimal">
-              {/* Only PDF Viewer */}
-              <div className="cert-viewer cert-viewer-fullscreen">
-                <iframe
-                  src={`${activeCertificate.certificatePath}#view=FitH&toolbar=0&navpanes=0&scrollbar=0`}
-                  className="cert-iframe"
-                  title={`${activeCertificate.company} Certificate`}
-                />
+        <div className="doc-viewer-overlay" onClick={closeCertificate}>
+          <div className="doc-viewer-panel" onClick={(e) => e.stopPropagation()}>
+
+            {/* Left: Info Panel */}
+            <div className="doc-info-panel">
+              <div className="doc-info-header">
+                <div className="doc-info-icon">
+                  <Building2Icon size={28} />
+                </div>
+                <span className="doc-info-badge">{activeCertificate.type}</span>
               </div>
 
-              {/* Only Action Buttons */}
-              <div className="cert-modal-actions cert-modal-actions-minimal">
-                <a 
+              <h2 className="doc-info-title">{activeCertificate.title}</h2>
+              <p className="doc-info-issuer">{activeCertificate.company}</p>
+
+              <div className="doc-info-meta">
+                <div className="doc-meta-row">
+                  <GraduationCap size={15} />
+                  <span>{activeCertificate.period}</span>
+                </div>
+              </div>
+
+              {activeCertificate.description && (
+                <p className="doc-info-description">{activeCertificate.description}</p>
+              )}
+
+              <div className="doc-info-actions">
+                <a
                   href={activeCertificate.certificatePath}
                   download={`${activeCertificate.company.replace(/[^a-zA-Z0-9]/g, '_')}_Certificate.pdf`}
-                  className="btn btn-primary"
+                  className="doc-btn doc-btn-primary"
                 >
-                  <Download size={18} />
-                  Download
+                  <Download size={16} /> Download PDF
                 </a>
-                <a 
+                <a
                   href={activeCertificate.certificatePath}
-                  target="_blank" 
+                  target="_blank"
                   rel="noopener noreferrer"
-                  className="btn btn-secondary"
+                  className="doc-btn doc-btn-outline"
                 >
-                  <Eye size={18} />
-                  Open in New Tab
+                  <Eye size={16} /> Open in Tab
                 </a>
               </div>
             </div>
+
+            {/* Right: PDF Viewer */}
+            <div className="doc-pdf-panel">
+              <div className="doc-pdf-topbar">
+                <span className="doc-pdf-filename">{activeCertificate.company} — Certificate.pdf</span>
+                <button className="doc-close-btn" onClick={closeCertificate}>
+                  <X size={18} />
+                </button>
+              </div>
+              <iframe
+                src={`${activeCertificate.certificatePath}#view=FitH&toolbar=0&navpanes=0&scrollbar=0`}
+                className="doc-pdf-frame"
+                title={`${activeCertificate.company} Certificate`}
+              />
+            </div>
+
           </div>
         </div>
       )}
