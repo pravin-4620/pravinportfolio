@@ -193,6 +193,16 @@ const Certifications = () => {
           </button>
         </div>
 
+        {/* Mobile Navigation Arrows */}
+        <div className="cert-mobile-nav">
+          <button className="cert-arrow" onClick={goPrev}>
+            <ChevronLeft size={22} />
+          </button>
+          <button className="cert-arrow" onClick={goNext}>
+            <ChevronRight size={22} />
+          </button>
+        </div>
+
         {/* Dot Indicators */}
         <div className="cert-dots">
           {certifications.map((_, i) => (

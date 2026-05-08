@@ -3049,16 +3049,58 @@ a, button, .nav-link, .social-link, .project-link {
 }
 
 @media (max-width: 768px) {
-  .cert-carousel { flex-direction: column; gap: 0.75rem; }
-  .cert-arrow { width: 40px; height: 40px; }
-  .cert-arrow-left { order: 2; }
-  .cert-arrow-right { order: 3; }
-  .cert-carousel-panel { flex-direction: column; min-height: auto; order: 1; }
-  .cert-info-side { width: 100%; border-right: none; border-bottom: 1px solid rgba(139,92,246,0.15); }
-  .cert-carousel-actions { flex-direction: row; }
-  .cert-carousel-iframe { min-height: 300px; }
-  .cert-carousel { flex-direction: row; flex-wrap: wrap; }
-  .cert-carousel-panel { order: 0; width: 100%; }
+  .cert-carousel {
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 0 0.5rem;
+  }
+
+  .cert-carousel-panel {
+    flex-direction: column;
+    min-height: auto;
+    width: 100%;
+  }
+
+  .cert-info-side {
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid rgba(139,92,246,0.15);
+    padding: 1.5rem;
+  }
+
+  .cert-pdf-side {
+    height: 350px;
+  }
+
+  .cert-carousel-iframe {
+    min-height: 100%;
+  }
+
+  /* Move arrows to a bottom row for better accessibility on mobile */
+  .cert-arrow-left, .cert-arrow-right {
+    display: none; /* Hide original side arrows */
+  }
+
+  /* We should probably add a mobile-only nav row in the JSX if we want arrows at the bottom, 
+     but for now let's just make the carousel stack and ensure it looks clean. */
+  
+  .cert-dots {
+    margin-top: 1rem;
+  }
+}
+
+/* Add a specific mobile-nav row for the arrows */
+.cert-mobile-nav {
+  display: none;
+  justify-content: center;
+  gap: 2rem;
+  margin-top: 1rem;
+}
+
+@media (max-width: 768px) {
+  .cert-mobile-nav {
+    display: flex;
+  }
 }
 
 .cert-view-btn:hover {
