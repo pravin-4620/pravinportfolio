@@ -10,7 +10,7 @@ const About = () => {
           <div className="about-photo-container">
             <div className="about-photo">
               <img 
-                src="/profile-photo.jpeg" 
+                src="/profile-picture.jpeg" 
                 alt="Pravin PT" 
                 className="profile-image"
               />
