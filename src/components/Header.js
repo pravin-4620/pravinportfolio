@@ -51,7 +51,7 @@ const Header = () => {
       <div className="container">
         <div className="header-content">
         <div className="logo-container" onClick={() => scrollToSection('home')}>
-          <img src="/profile-photo.JPG" alt="Pravin" className="logo-img" />
+          <img src="/profile-photo.jpeg" alt="Pravin" className="logo-img" />
           <h1 className="logo">Pravin</h1>
         </div>
           
