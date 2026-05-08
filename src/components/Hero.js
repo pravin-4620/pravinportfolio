@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Github, Linkedin, Mail, Code, Download, Eye, X } from 'lucide-react';
 
+const roles = ['Web Developer', 'Hardware Enthusiast'];
+
 const Hero = () => {
   const [typedText, setTypedText] = useState('');
   const [showResume, setShowResume] = useState(false);
-  const roles = ['Web Developer', 'Hardware Enthusiast'];
   const [roleIndex, setRoleIndex] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
 
