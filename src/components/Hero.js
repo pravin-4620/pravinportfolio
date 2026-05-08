@@ -83,8 +83,11 @@ const Hero = () => {
             <a href="https://www.linkedin.com/in/pravin-pt-8879a72a4/" target="_blank" rel="noopener noreferrer" className="social-link">
               <Linkedin size={24} />
             </a>
-            <a href="mailto:pravinsurya2905@gmail.com" className="social-link">
+            <a href="mailto:pravinsurya2905@gmail.com" className="social-link" title="Email">
               <Mail size={24} />
+            </a>
+            <a href="https://leetcode.com/u/Pravin_PT/" target="_blank" rel="noopener noreferrer" className="social-link" title="LeetCode">
+              <Code size={24} />
             </a>
           </div>
         </div>
