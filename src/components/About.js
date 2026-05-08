@@ -1,5 +1,5 @@
 import React from 'react';
-import { User, MapPin, Briefcase, GraduationCap } from 'lucide-react';
+import { User, MapPin, GraduationCap } from 'lucide-react';
 
 const About = () => {
   return (
