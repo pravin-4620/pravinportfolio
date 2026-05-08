@@ -50,7 +50,10 @@ const Header = () => {
     <header className={`header ${isScrolled ? 'scrolled' : ''}`}>
       <div className="container">
         <div className="header-content">
+        <div className="logo-container" onClick={() => scrollToSection('home')}>
+          <img src="/profile-photo.JPG" alt="Pravin" className="logo-img" />
           <h1 className="logo">Pravin</h1>
+        </div>
           
           <button 
             className="mobile-menu-btn"
